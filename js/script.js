@@ -1,4 +1,4 @@
-(function (Vue, $, _) {
+(function (Vue, $, _, httpVueLoader) {
 
   if (typeof $ === 'undefined' || !$) {
     throw new Error('jQuery library not found!')
@@ -6,13 +6,15 @@
     throw new Error('Vue library not found!')
   } else if (typeof _ === 'undefined' || !_) {
     throw new Error('Underscore library not found!')
+  } else if (typeof httpVueLoader === 'undefined' || !httpVueLoader) {
+    throw new Error('Underscore library not found!')
   }
 
   $(document).ready(function () {
 
     const routes = [
-      { name: 'foo', path: '/foo', component: { template: '<h2>foo</h2>' } },
-      { name: 'bar', path: '/bar', component: { template: '<h2>bar</h2>' } }
+      { name: 'foo', path: '/foo', component: httpVueLoader('vue/foo.vue') },
+      { name: 'bar', path: '/bar', component: httpVueLoader('vue/bar.vue') }
     ]
 
     const router = new VueRouter({ routes })
@@ -29,4 +31,4 @@
 
   })
 
-})(Vue, jQuery, _)
+})(Vue, jQuery, _, httpVueLoader)
